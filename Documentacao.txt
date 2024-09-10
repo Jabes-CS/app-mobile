@@ -1,0 +1,33 @@
+Loading - Logo
+Login - Log-in, Sign-in, Password, Button
+Cadastro 
+   - Nome Completo
+   - Data de Nascimento
+   - Telefone
+   - Email 
+   - CPF
+   - CEP
+
+Tela Principal (Edicao de Perfil) - Primeira entrada - Apos cadastro e apos login
+   - Data de recebimento do salario
+   - Salario
+   - Credito 
+   - Profissao
+   - Se deseja Investir
+
+OBS.: Tela de edicao de dados, acessada atraves da sidebar, precisara ser criada acrescentara email, nome e telefone.
+
+Tela Principal 
+
+CRIAR um icone que mostrara um pop-up para inserir os dados
+- Insercao de dados - Nome do produto, descricao e preco 
+
+Mostra o Salario, gastos, credito disponivel, itens comprados e seus respectivos valores, data e hora que foi comprado, botao para editar perfil (3 barrinhas - menu - sidebar)
+
+Opcoes da SIDEBAR 
+- Editar PERFIL
+- TEMA (Claro e Escuro - Dark and Light)
+- Acessibilidade - Cor do fundo para pessoas fotossensiveis
+- TROCAR CONTA
+
+Conversar com professor sobre acessibilidade. Oq sera necessario?
