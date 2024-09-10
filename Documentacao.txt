@@ -1,3 +1,14 @@
+               Tema e aplicação do projeto
+      •	Finanças em Dia / Gerenciamento Financeiro
+  O objetivo desse aplicativo é ajudar as pessoas com suas finanças!
+  Sendo assim, ele servirá da seguinte forma: (terá ali o acesso normal de login/cadastro e as informações dos dispositivos).
+  A parte que mais chama atenção desse projeto é, o usuário informa qual o valor de seu salário e quanto ele tem de limite de crédito, 
+com isso ao invés do site informá-lo que atingiu o saldo disponível de crédito, ele informará que o valor gasto no mês está chegando perto ou 
+já passou do salário, assim ele conseguirá pagar a conta do mês sem se endividar com o banco.
+  Terá também uma funcionalidade que o usuário vai adicionando seus gastos, assim o sistema irá dando retorno e sugestões 
+de como melhorar sua administração financeira.
+
+
 Loading - Logo
 Login - Log-in, Sign-in, Password, Button
 Cadastro 
