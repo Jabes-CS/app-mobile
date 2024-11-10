@@ -3,14 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Login</title>
+    <title>Página de Cadastro</title>
     <!-- Link do Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Estilo personalizado -->
-    <link rel="stylesheet" type="text/css" href="css/estilo.css">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f5f5f5;
+        }
+        .signup-container {
+            width: 100%;
+            max-width: 500px;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .signup-container h2 {
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+    </style>
 </head>
-<body class="login">
-    <div class="login-container bg-primary text-center">
+<body>
+    <div class="signup-container bg-primary text-center">
             <a href="index.html" class="navbar-brand">
                 <img src="img/logo.png" width="142">
             </a>
@@ -23,9 +43,13 @@
                 <label for="password" class="text-light">Senha</label>
                 <input type="password" class="form-control" id="password" placeholder="Digite sua senha" required>
             </div>
-            <button type="submit" class="btn btn-outline-light btn-block">Entrar</button>
+            <div class="form-group">
+                <label for="confirm-password" class="text-light">Confirme a Senha</label>
+                <input type="password" class="form-control" id="confirm-password" placeholder="Confirme sua senha" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Cadastrar</button>
             <div class="text-center mt-3">
-                <a href="cadastro.html" class="text-light">Cadastre-se</a>
+                <a href="login.html" class="text-light">Já possui uma conta? Faça login</a>
             </div>
         </form>
     </div>
