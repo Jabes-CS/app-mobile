@@ -4,7 +4,7 @@ import { View, Text,  TouchableOpacity, ScrollView, Image  } from "react-native"
 import styles from "./styles";
 
 
-export default function ExtratoScreen(){
+export default function PageHome(){
     
     const [tab, setTab] = useState("Entrada");
 

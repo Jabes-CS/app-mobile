@@ -10,7 +10,7 @@ export default function LoginScreen({navigation}){
           source={require('../../img/logo-small.png')}
           />
         </View>
-        <Text style={styles.label}>Email</Text>
+        <Text style={styles.label}>E-mail</Text>
         <TextInput style={styles.input} placeholder="exemplo@gmail.com" keyboardType="email-address" />
 
         <Text style={styles.label}>Senha</Text>
@@ -21,11 +21,11 @@ export default function LoginScreen({navigation}){
         </TouchableOpacity>
 
         <TouchableOpacity>
-          <Text style={styles.link}>Cadastre-se</Text>
+          <Text style={styles.link} onPress={() => navigation.navigate('SignUp')}>Cadastre-se</Text>
         </TouchableOpacity>
 
         <TouchableOpacity>
-          <Text style={styles.link}>Esqueceu sua senha?</Text>
+          <Text style={styles.link} onPress={() => navigation.navigate('ForgetPw')}>Esqueceu sua senha?</Text>
         </TouchableOpacity>
       </View>
     );

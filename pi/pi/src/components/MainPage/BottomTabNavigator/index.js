@@ -1,28 +1,40 @@
-import React, {useState} from "react";
-import { View, TouchableOpacity } from "react-native";
+import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-import styles from "./styles";
+// // Importar as telas que você deseja exibir
+import PageHome from './PageHome';
+import PageChat from './PageChat';
+import PageGraphics from './PageGraphics';
+import PageProfile from './PageProfile';
+import PageSettings from './PageSettings';
 
+const Tab = createBottomTabNavigator();
 
-export default function BottomTabNavigator({navigation}){
-    const [selectedTab, setSelectedTab] = useState('Conta');
+export default function BottomTabNavigator() {
+  return (
+    <Tab.Navigator
+      initialRouteName="Home"
+      screenOptions={({ route }) => ({
+        tabBarIcon: ({ focused, color, size }) => {
+          let iconName;
+          if (route.name === 'Home') iconName = focused ? 'home' : 'home-outline';
+          else if (route.name === 'Profile') iconName = focused ? 'person' : 'person-outline';
+          else if (route.name === 'Chat') iconName = focused ? 'chatbubbles-outline' : 'chatbubbles-outline';
+          else if (route.name === 'Graphics') iconName = focused ? 'stats-chart-outline' : 'stats-chart-outline';
+          else if (route.name === 'Settings') iconName = focused ? 'settings' : 'settings-outline';
 
-    return (
-      <View style={styles.bottomTabContainer}>
-        {['home', 'person', 'chatbubble', 'camera', 'settings'].map((icon, index) => (
-          <TouchableOpacity
-            key={icon}
-            onPress={() => {
-              setSelectedTab(icon);
-              navigation.navigate(icon === 'settings' ? 'PageSettings' : 'Conta');
-            }}
-            style={styles.tabButton}
-          >
-            <Ionicons name={icon} size={24} color={selectedTab === icon ? '#00ccff' : '#000'} />
-          </TouchableOpacity>
-        ))}
-      </View>
-    );
-
-};
+          return <Ionicons name={iconName} size={size} color={color} />;
+        },
+        tabBarActiveTintColor: '#00ccff',
+        tabBarInactiveTintColor: 'gray',
+      })}
+    >
+      <Tab.Screen name="Home" component={PageHome} />
+      <Tab.Screen name="Profile" component={PageProfile} />
+      <Tab.Screen name="Chat" component={PageChat} />
+      <Tab.Screen name="Graphics" component={PageGraphics} />
+      <Tab.Screen name="Settings" component={PageSettings} />
+    </Tab.Navigator>
+  );
+}

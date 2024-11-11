@@ -5,6 +5,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import LoginScreen from './src/components/LoginScreen';
 import MainPage from './src/components/MainPage';
+import ForgetPw from './src/components/ForgetPw';
+import SignUp from './src/components/SignUp';
 
 const Stack = createStackNavigator();
 
@@ -24,6 +26,8 @@ export default function App() {
       <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="MainPage" component={MainPage} />
+        <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="ForgetPw" component={ForgetPw} />
       </Stack.Navigator>
     </NavigationContainer>
   );
