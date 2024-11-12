@@ -27,7 +27,7 @@ export default function LoginScreen({navigation}){
     let ress = await reqs.json();
     Keyboard.dismiss();
     if(ress){
-      navigation.navigate('BottomTabNavigtor');
+      navigation.navigate('BottomTabNavigator');
     }else{
       setMessage('Usuário e/ou senha incorretos!');
       setTimeout(()=>{
@@ -64,7 +64,7 @@ export default function LoginScreen({navigation}){
           onChangeText={(text)=>setSenha(text)}
         />
 
-        <TouchableOpacity style={styles.button} onPress={doLogin}>
+        <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate('BottomTabNavigator')}>
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
 
