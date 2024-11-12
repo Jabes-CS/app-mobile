@@ -51,6 +51,12 @@ export default function PageHome(){
             </View>
         </View>
 
+        <View style={styles.entryContainer}>
+            <TouchableOpacity style={styles.entryButton}>
+                <Text style={styles.entryText}>Adicionar Lançamento</Text>
+            </TouchableOpacity>
+        </View>
+
         <View style={styles.tabContainer}>
             <TouchableOpacity onPress={() => setTab('Entrada')} style={[styles.tab, tab === 'Entrada' && styles.activeTab]}>
             <Text style={styles.tabText}>Entrada</Text>
