@@ -1,6 +1,7 @@
 #home {
 	background: #0444cc;
 	color: white;
+	padding-top: 70px; /* Ajuste o valor conforme a altura da navbar */
 }
 
 .caixa {
