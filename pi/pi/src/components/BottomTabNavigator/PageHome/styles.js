@@ -36,12 +36,13 @@ const styles = StyleSheet.create({
     },
     header: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-end',
         alignItems: 'center',
         marginBottom: 20,
     },
     buttonRow: {
         flexDirection: 'row',
+        width:'auto',
     },
     reminderButton: {
         backgroundColor: '#00ccff',
@@ -53,6 +54,35 @@ const styles = StyleSheet.create({
         backgroundColor: '#ccc',
         padding: 10,
         borderRadius: 5,
+        justifyContent:"flex-end"
+    },
+    buttonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+    },
+    entryContainer:{
+        alignItems:"center"
+    },
+    entryButton:{
+        width:"80%",
+        alignItems:"center",
+        backgroundColor: '#00ccff',
+        marginTop:15,
+        marginBottom:25,
+        padding:9,
+        borderRadius:100,
+    },
+    entryText:{
+        fontSize:18,
+        fontWeight:'bold',
+        color:"#fff",
+    },
+    extratoContainer:{
+        backgroundColor:'#ccc',
+        opacity:.7,
+        paddingVertical:10,
+        paddingHorizontal:20,
+        borderRadius:10
     },
     tabContainer: {
         flexDirection: 'row',
