@@ -28,7 +28,9 @@ export default function BottomTabNavigator() {
         },
         tabBarActiveTintColor: '#00ccff',
         tabBarInactiveTintColor: 'gray',
+        
       })}
+      
     >
       <Tab.Screen name="Home" component={PageHome} />
       <Tab.Screen name="Profile" component={PageProfile} />
