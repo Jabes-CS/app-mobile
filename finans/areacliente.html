@@ -1,14 +1,162 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Área do Cliente - Controle Financeiro</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Chart.js e adaptador de data -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            padding-top: 2rem;
+        }
+        .dashboard-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .chart-container {
+            padding: 2rem;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
+        }
+    </style>
 </head>
-
-<h1>Benefícios</h1>
-
 <body>
-    
+    <div class="container dashboard-container">
+        <h2 class="text-center mb-4">Painel de Controle Financeiro</h2>
+        
+        <!-- Gráfico de Bitcoin -->
+        <div class="chart-container">
+            <h4>Bitcoin (BTC)</h4>
+            <canvas id="bitcoinChart"></canvas>
+        </div>
+        
+        <!-- Gráfico de Ethereum -->
+        <div class="chart-container">
+            <h4>Ethereum (ETH)</h4>
+            <canvas id="ethereumChart"></canvas>
+        </div>
+        
+        <!-- Gráfico de Dólar -->
+        <div class="chart-container">
+            <h4>Dólar (USD)</h4>
+            <canvas id="usdChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Função para buscar dados da API e atualizar o gráfico
+        async function fetchCurrencyData(currency) {
+            try {
+                console.log(`Buscando dados para ${currency}`);
+                const response = await fetch(`https://api.coingecko.com/api/v3/coins/${currency}/market_chart?vs_currency=usd&days=7`);
+                const data = await response.json();
+
+                // Verificar se o dado é retornado e tem o campo 'prices'
+                if (data && data.prices) {
+                    console.log(`Dados recebidos para ${currency}:`, data.prices);
+                    return data.prices.map(price => ({ x: new Date(price[0]), y: price[1] }));
+                } else {
+                    console.error(`Nenhum dado encontrado para ${currency}`);
+                    return [];
+                }
+            } catch (error) {
+                console.error("Erro ao buscar dados:", error);
+                return [];
+            }
+        }
+
+        // Função para criar gráficos, que são criados apenas uma vez na inicialização
+        async function initializeCharts() {
+            const bitcoinData = await fetchCurrencyData("bitcoin");
+            const ethereumData = await fetchCurrencyData("ethereum");
+            const usdData = await fetchCurrencyData("usd");
+
+            // Gráfico de Bitcoin
+            new Chart(document.getElementById("bitcoinChart").getContext('2d'), {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: "Bitcoin",
+                        data: bitcoinData,
+                        borderColor: "#f7931a",
+                        backgroundColor: "#f7931a33",
+                        fill: true
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: { type: 'time', time: { unit: 'day' } },
+                        y: { beginAtZero: false }
+                    },
+                    plugins: {
+                        legend: { display: true }
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Gráfico de Ethereum
+            new Chart(document.getElementById("ethereumChart").getContext('2d'), {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: "Ethereum",
+                        data: ethereumData,
+                        borderColor: "#3c3c3d",
+                        backgroundColor: "#3c3c3d33",
+                        fill: true
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: { type: 'time', time: { unit: 'day' } },
+                        y: { beginAtZero: false }
+                    },
+                    plugins: {
+                        legend: { display: true }
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+
+            // Gráfico de Dólar
+            new Chart(document.getElementById("usdChart").getContext('2d'), {
+                type: 'line',
+                data: {
+                    datasets: [{
+                        label: "Dólar",
+                        data: usdData,
+                        borderColor: "#0071c5",
+                        backgroundColor: "#0071c533",
+                        fill: true
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: { type: 'time', time: { unit: 'day' } },
+                        y: { beginAtZero: false }
+                    },
+                    plugins: {
+                        legend: { display: true }
+                    },
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+
+        // Inicializa os gráficos na carga da página
+        window.onload = initializeCharts;
+    </script>
 </body>
 </html>
