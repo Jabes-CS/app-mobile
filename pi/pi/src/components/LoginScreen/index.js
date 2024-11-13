@@ -64,7 +64,7 @@ export default function LoginScreen({navigation}){
           onChangeText={(text)=>setSenha(text)}
         />
 
-        <TouchableOpacity style={styles.button} onPress={()=> navigation.navigate('BottomTabNavigator')}>
+        <TouchableOpacity style={styles.button} onPress={doLogin}>
           <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
 
