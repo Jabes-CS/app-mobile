@@ -24,6 +24,12 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-bottom: 1.5rem;
+            /* Definindo altura fixa para contêineres */
+            height: 400px;
+        }
+        .chart-container canvas {
+            max-height: 100%; /* Limita altura do canvas ao contêiner */
+            width: 100%;      /* Largura ajustada ao contêiner */
         }
     </style>
 </head>
@@ -55,103 +61,48 @@
         // Função para buscar dados da API e atualizar o gráfico
         async function fetchCurrencyData(currency) {
             try {
-                console.log(`Buscando dados para ${currency}`);
                 const response = await fetch(`https://api.coingecko.com/api/v3/coins/${currency}/market_chart?vs_currency=usd&days=7`);
                 const data = await response.json();
-
-                // Verificar se o dado é retornado e tem o campo 'prices'
-                if (data && data.prices) {
-                    console.log(`Dados recebidos para ${currency}:`, data.prices);
-                    return data.prices.map(price => ({ x: new Date(price[0]), y: price[1] }));
-                } else {
-                    console.error(`Nenhum dado encontrado para ${currency}`);
-                    return [];
-                }
+                return data && data.prices ? data.prices.map(price => ({ x: new Date(price[0]), y: price[1] })) : [];
             } catch (error) {
                 console.error("Erro ao buscar dados:", error);
                 return [];
             }
         }
 
-        // Função para criar gráficos, que são criados apenas uma vez na inicialização
+        // Função para inicializar gráficos uma vez
         async function initializeCharts() {
             const bitcoinData = await fetchCurrencyData("bitcoin");
             const ethereumData = await fetchCurrencyData("ethereum");
             const usdData = await fetchCurrencyData("usd");
 
-            // Gráfico de Bitcoin
+            const chartOptions = {
+                scales: {
+                    x: { type: 'time', time: { unit: 'day' } },
+                    y: { beginAtZero: false }
+                },
+                plugins: {
+                    legend: { display: true }
+                },
+                responsive: false,  // Impede redimensionamento automático
+            };
+
             new Chart(document.getElementById("bitcoinChart").getContext('2d'), {
                 type: 'line',
-                data: {
-                    datasets: [{
-                        label: "Bitcoin",
-                        data: bitcoinData,
-                        borderColor: "#f7931a",
-                        backgroundColor: "#f7931a33",
-                        fill: true
-                    }]
-                },
-                options: {
-                    scales: {
-                        x: { type: 'time', time: { unit: 'day' } },
-                        y: { beginAtZero: false }
-                    },
-                    plugins: {
-                        legend: { display: true }
-                    },
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
+                data: { datasets: [{ label: "Bitcoin", data: bitcoinData, borderColor: "#f7931a", backgroundColor: "#f7931a33", fill: true }] },
+                options: chartOptions
             });
 
-            // Gráfico de Ethereum
             new Chart(document.getElementById("ethereumChart").getContext('2d'), {
                 type: 'line',
-                data: {
-                    datasets: [{
-                        label: "Ethereum",
-                        data: ethereumData,
-                        borderColor: "#3c3c3d",
-                        backgroundColor: "#3c3c3d33",
-                        fill: true
-                    }]
-                },
-                options: {
-                    scales: {
-                        x: { type: 'time', time: { unit: 'day' } },
-                        y: { beginAtZero: false }
-                    },
-                    plugins: {
-                        legend: { display: true }
-                    },
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
+                data: { datasets: [{ label: "Ethereum", data: ethereumData, borderColor: "#3c3c3d", backgroundColor: "#3c3c3d33", fill: true }] },
+                options: chartOptions
             });
 
-            // Gráfico de Dólar
             new Chart(document.getElementById("usdChart").getContext('2d'), {
                 type: 'line',
-                data: {
-                    datasets: [{
-                        label: "Dólar",
-                        data: usdData,
-                        borderColor: "#0071c5",
-                        backgroundColor: "#0071c533",
-                        fill: true
-                    }]
-                },
-                options: {
-                    scales: {
-                        x: { type: 'time', time: { unit: 'day' } },
-                        y: { beginAtZero: false }
-                    },
-                    plugins: {
-                        legend: { display: true }
-                    },
-                    responsive: true,
-                    maintainAspectRatio: false
-                }
+                data: { datasets: [{ label: "Dólar", data: usdData, borderColor: "#0071c5", backgroundColor: "#0071c533", fill: true }] },
+                options: chartOptions
             });
         }
 
