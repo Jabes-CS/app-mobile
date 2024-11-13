@@ -3,8 +3,7 @@ import { View, Text,  TouchableOpacity, ScrollView, Image  } from "react-native"
 
 import styles from "./styles";
 
-
-export default function PageHome(){
+export default function PageHome({navigation}){
     
     const [tab, setTab] = useState("Entrada");
 
@@ -36,6 +35,7 @@ export default function PageHome(){
     }
 
     return (
+
         <View style={styles.container}>
             <ProfileHeader />
 
@@ -52,7 +52,10 @@ export default function PageHome(){
             </View>
 
             <View style={styles.entryContainer}>
-                <TouchableOpacity style={styles.entryButton}>
+                <TouchableOpacity 
+                    style={styles.entryButton}
+                    onPress={null}
+                >
                     <Text style={styles.entryText}>Adicionar Lançamento</Text>
                 </TouchableOpacity>
             </View>
