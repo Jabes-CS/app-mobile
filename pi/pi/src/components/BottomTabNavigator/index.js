@@ -32,11 +32,11 @@ export default function BottomTabNavigator() {
       })}
       
     >
-      <Tab.Screen name="Home" component={PageHome} />
-      <Tab.Screen name="Profile" component={PageProfile} />
-      <Tab.Screen name="Chat" component={PageChat} />
-      <Tab.Screen name="Graphics" component={PageGraphics} />
-      <Tab.Screen name="Settings" component={PageSettings} />
+      <Tab.Screen name="Home" component={PageHome} options={{headerShown:false}}/>
+      <Tab.Screen name="Profile" component={PageProfile} options={{headerShown:false}}/>
+      <Tab.Screen name="Chat" component={PageChat} options={{headerShown:false}}/>
+      <Tab.Screen name="Graphics" component={PageGraphics} options={{headerShown:false}}/>
+      <Tab.Screen name="Settings" component={PageSettings} options={{headerShown:false}}/>
     </Tab.Navigator>
   );
 }

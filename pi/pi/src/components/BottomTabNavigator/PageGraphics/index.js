@@ -1,8 +1,10 @@
 // screens/HomeScreen.js
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Dimensions, ScrollView } from 'react-native';
+import { Text, Dimensions, ScrollView } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import axios from 'axios';
+
+import styles from './styles';
 
 export default function PageGraphics() {
   const [labels, setLabels] = useState([]); // Inicializando labels com um array vazio
@@ -74,27 +76,4 @@ export default function PageGraphics() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flexGrow: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginVertical: 20,
-    textAlign: 'center',
-  },
-  chartTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginTop: 20,
-    marginBottom: 10,
-  },
-  chart: {
-    marginVertical: 8,
-    borderRadius: 16,
-  },
-});
+

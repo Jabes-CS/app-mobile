@@ -41,8 +41,9 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     switch:{
-        width:5,
-        marginBottom:30,
+        flex:1,
+        height:55,
+        alignItems:'flex-start',
     },
     phraseSignUp:{
         fontWeight:"bold",

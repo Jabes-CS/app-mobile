@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Switch, Button, Alert } from 'react-native';
+import { View, Text, Switch, Button, Alert } from 'react-native';
 
-export default function SettingsScreen() {
+import styles from './styles';
+
+export default function SettingsScreen({navigation}) {
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [isNotificationsEnabled, setIsNotificationsEnabled] = useState(true);
 
@@ -14,8 +16,8 @@ export default function SettingsScreen() {
   };
 
   const handleLogout = () => {
-    // Implementar a lógica de logout
     Alert.alert('Logout', 'Você foi desconectado do aplicativo.');
+    navigation.navigate('Login');
   };
 
   return (
@@ -49,17 +51,10 @@ export default function SettingsScreen() {
       {/* Sobre */}
       <View style={styles.aboutContainer}>
         <Text style={styles.aboutText}>Versão 1.0.0</Text>
-        <Text style={styles.aboutText}>Desenvolvido por: Seu Nome</Text>
+        <Text style={styles.aboutText}>Desenvolvido por: Equipe Unplanned</Text>
       </View>
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: { flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20 },
-  title: { fontSize: 24, fontWeight: 'bold', marginBottom: 20 },
-  text: { fontSize: 18 },
-  settingRow: { flexDirection: 'row', alignItems: 'center', marginVertical: 10 },
-  aboutContainer: { marginTop: 20, alignItems: 'center' },
-  aboutText: { fontSize: 16, color: '#888' }
-});
+

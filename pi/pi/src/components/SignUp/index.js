@@ -9,7 +9,7 @@ import styles from "./styles";
 export default function SignUp({navigation}){
 
     const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+    const toggleSwitch = (value) => setIsEnabled(value);
 
     const [nome, setNome] = useState(null);
     const [senha, setSenha] = useState(null);
@@ -140,18 +140,21 @@ export default function SignUp({navigation}){
                     />
 
                     <Text style={styles.label}>Deseja Investir?</Text>
+                    
                     <SafeAreaProvider>
-                        <SafeAreaView style={styles.switch}>
+                        <SafeAreaView  style={styles.switch}>
                             <Switch
-                            trackColor={{false: '#767577', true: '#81b0ff'}}
-                            thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-                            ios_backgroundColor="#3e3e3e"
-                            onValueChange={toggleSwitch}
-                            value={isEnabled}
-                            isEnabled = {setInvestir}
+                                trackColor={{false: '#767577', true: '#81b0ff'}}
+                                thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+                                ios_backgroundColor="#3e3e3e"
+                                onValueChange={toggleSwitch}
+                                value={isEnabled}
+                                isEnabled = {setInvestir}
                             />
                         </SafeAreaView>
                     </SafeAreaProvider>
+
+                    
                         
 
 
