@@ -51,7 +51,7 @@ export default function AddEntry({navigation}){
                     </Text>
 
                     {message &&(
-                        <Text>{message}</Text>
+                        <Text style={styles.messageError}>{message}</Text>
                     )}
 
                     <View>
@@ -109,3 +109,5 @@ export default function AddEntry({navigation}){
         
     );
 }
+
+export {AddEntry};

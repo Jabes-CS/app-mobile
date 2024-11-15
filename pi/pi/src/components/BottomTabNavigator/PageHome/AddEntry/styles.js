@@ -58,5 +58,9 @@ const styles = StyleSheet.create({
         color: 'red',
         fontWeight: 'bold', 
     },
+    messageError:{
+        fontWeight:"bold",
+        color:"red",
+    }
 });
 export default styles;

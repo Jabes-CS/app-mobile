@@ -46,6 +46,10 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         textDecorationLine:"underline",
     },
+    messageError:{
+        fontWeight:"bold",
+        color:"red",
+    },
 
 });
 

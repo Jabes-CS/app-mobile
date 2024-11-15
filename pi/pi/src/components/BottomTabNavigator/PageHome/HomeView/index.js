@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { View, Text,  TouchableOpacity, ScrollView, Image  } from "react-native";
 
 import styles from "./styles";
+import AddEntry from "../AddEntry";
 
 export default function HomeView({navigation}){
     

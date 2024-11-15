@@ -45,7 +45,7 @@ export default function LoginScreen({navigation}){
         </View>
 
         {message &&(
-          <Text>{message}</Text>
+          <Text style={styles.messageError}>{message}</Text>
         )}
 
         <Text style={styles.label}>E-mail</Text>
