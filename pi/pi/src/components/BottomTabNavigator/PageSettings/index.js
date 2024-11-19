@@ -50,8 +50,8 @@ export default function SettingsScreen({navigation}) {
 
       {/* Sobre */}
       <View style={styles.aboutContainer}>
-        <Text style={styles.aboutText}>Versão 1.0.0</Text>
-        <Text style={styles.aboutText}>Desenvolvido por: Equipe Unplanned</Text>
+        <Text style={styles.aboutText}></Text>
+        <Text style={styles.aboutText}></Text>
       </View>
     </View>
   );
