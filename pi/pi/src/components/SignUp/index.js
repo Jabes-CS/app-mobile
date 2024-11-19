@@ -28,7 +28,7 @@ export default function SignUp({navigation}){
 
     async function registerUser(){
                                 // ROTA PARA O SERVIDOR
-        let reqs = await fetch('http//127.0.0.1:5000' ,{
+        let reqs = await fetch('http//127.0.0.1:5000/usuario/cadastro' ,{
             method: 'POST',
             headers:{
                 'Accept':'application/json',
@@ -50,10 +50,10 @@ export default function SignUp({navigation}){
                 deseja_investir:investir
             })
         });
-        navigation.goBack();
         let ress = await reqs.json();
 
         setMessage(ress);
+        navigation.goBack();
     }
 
     return(

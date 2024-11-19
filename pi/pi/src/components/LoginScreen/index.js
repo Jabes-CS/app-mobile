@@ -12,7 +12,7 @@ export default function LoginScreen({navigation}){
 
   async function doLogin(){
 
-    let reqs = await fetch('http//127.0.0.1:5000',{
+    let reqs = await fetch('http//127.0.0.1:5000/usuario/login',{
       method: 'POST',
       headers:{
           'Accept':'application/json',
@@ -68,7 +68,10 @@ export default function LoginScreen({navigation}){
           <Text style={styles.buttonText}>Entrar SEM LOGIN</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.button} onPress={doLogin}>
+        <TouchableOpacity 
+          style={styles.button} 
+          onPress={doLogin}
+        >
           <Text style={styles.buttonText}>Entrar TESTE BANCO</Text>
         </TouchableOpacity>
 
