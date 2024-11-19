@@ -24,28 +24,83 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin-bottom: 1.5rem;
-            /* Definindo altura fixa para contêineres */
             height: 400px;
         }
         .chart-container canvas {
-            max-height: 100%; /* Limita altura do canvas ao contêiner */
-            width: 100%;      /* Largura ajustada ao contêiner */
+            max-height: 100%;
+            width: 100%;
+        }
+        #chatbot-wrapper {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 300px;
+            z-index: 1000;
+        }
+        #chat-container {
+            display: none;
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        #chat-box {
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+        #chat-header {
+            background-color: #007bff;
+            color: white;
+            padding: 0.5rem 1rem;
+            text-align: center;
+            cursor: pointer;
+        }
+        .input-group {
+            border-top: 1px solid #ddd;
+            padding: 0.5rem;
+        }
+        .chat-message {
+            margin-bottom: 0.5rem;
+        }
+        .user-message {
+            text-align: right;
+            color: #007bff;
+        }
+        .bot-message {
+            text-align: left;
+            color: #343a40;
+        }
+        #toggle-chatbot {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        #toggle-chatbot:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <header><!-- inicio Cabecalho -->
+    <header>
         <nav class="navbar navbar-expand-sm navbar-light bg-primary fixed-top">
           <div class="container">
-            
             <a href="index.html" class="navbar-brand">
               <img src="img/logo.png" width="142">
             </a>
-  
             <button class="navbar-toggler" data-toggle="collapse" data-target="#nav-principal">
               <span class="navbar-toggler-icon"></span>
             </button>
-  
             <div class="collapse navbar-collapse" id="nav-principal">
               <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
@@ -59,84 +114,137 @@
                 </li>
               </ul>
             </div>
-  
           </div>
         </nav>
-      </header><!--/fim Cabecalho -->
+    </header>
     <div class="container dashboard-container">
-        <h2 class="text-center mb-4"></h2>
-        
-        <!-- Gráfico de Bitcoin -->
+        <h2 class="text-center mb-4">Painel Financeiro</h2>
         <div class="chart-container">
             <h4>Bitcoin (BTC)</h4>
             <canvas id="bitcoinChart"></canvas>
         </div>
-        
-        <!-- Gráfico de Ethereum -->
         <div class="chart-container">
             <h4>Ethereum (ETH)</h4>
             <canvas id="ethereumChart"></canvas>
         </div>
-        
-        <!-- Gráfico de Dólar -->
         <div class="chart-container">
             <h4>Dólar (USD)</h4>
             <canvas id="usdChart"></canvas>
         </div>
     </div>
 
-    <!-- Scripts -->
+    <!-- Chatbot -->
+    <button id="toggle-chatbot">💬</button>
+    <div id="chatbot-wrapper">
+        <div id="chat-container">
+            <div id="chat-header">Chatbot</div>
+            <div id="chat-box"></div>
+            <div class="input-group">
+                <input type="text" id="user-input" class="form-control" placeholder="Digite sua mensagem...">
+                <div class="input-group-append">
+                    <button id="send-btn" class="btn btn-primary">Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Função para buscar dados da API e atualizar o gráfico
-        async function fetchCurrencyData(currency) {
-            try {
-                const response = await fetch(`https://api.coingecko.com/api/v3/coins/${currency}/market_chart?vs_currency=usd&days=7`);
-                const data = await response.json();
-                return data && data.prices ? data.prices.map(price => ({ x: new Date(price[0]), y: price[1] })) : [];
-            } catch (error) {
-                console.error("Erro ao buscar dados:", error);
-                return [];
+        // Variáveis de estado para o chatbot
+        let chatState = 0;
+
+        // Função de resposta do bot com lógica de interação
+        function handleBotResponse(userMessage) {
+            let botResponse = '';
+            if (chatState === 0) {
+                botResponse = 'Qual é o seu nome?';
+                chatState++;
+            } else if (chatState === 1) {
+                botResponse = `Olá, ${userMessage}. Bom ${getGreetingTime()}! Escolha:<br>1. O que é gestão financeira?<br>2. Como melhorar minha gestão financeira?<br>3. Como repartir meu salário?<br>4. Recomende 5 livros de finanças.<br>5. Tigrinho dá dinheiro?`;
+                chatState++;
+            } else {
+                switch (userMessage) {
+                    case '1': botResponse = 'Gestão financeira é o processo de organizar suas finanças pessoais ou empresariais.'; break;
+                    case '2': botResponse = 'Organize despesas, defina metas e invista regularmente.'; break;
+                    case '3': botResponse = 'Divida seu salário em necessidades (50%), desejos (30%) e investimentos (20%).'; break;
+                    case '4': botResponse = 'Recomendo: "Pai Rico, Pai Pobre", "O Homem Mais Rico da Babilônia", "A Psicologia do Dinheiro", "Os Segredos da Mente Milionária" e "Investimentos Inteligentes".'; break;
+                    case '5': botResponse = 'Não, Tigrinho não dá dinheiro. Invista com sabedoria.'; break;
+                    default: botResponse = 'Escolha entre 1-5.'; break;
+                }
             }
+            addMessageToChat('bot', botResponse);
         }
 
-        // Função para inicializar gráficos uma vez
+        // Função para obter saudação com base no horário
+        function getGreetingTime() {
+            const hour = new Date().getHours();
+            if (hour < 12) return 'Bom dia';
+            if (hour < 18) return 'Boa tarde';
+            return 'Boa noite';
+        }
+
+        // Inicializar gráficos
         async function initializeCharts() {
+            async function fetchCurrencyData(currency) {
+                try {
+                    const response = await fetch(`https://api.coingecko.com/api/v3/coins/${currency}/market_chart?vs_currency=usd&days=7`);
+                    const data = await response.json();
+                    return data && data.prices ? data.prices.map(price => ({ x: new Date(price[0]), y: price[1] })) : [];
+                } catch (error) {
+                    console.error("Erro ao buscar dados:", error);
+                    return [];
+                }
+            }
+
             const bitcoinData = await fetchCurrencyData("bitcoin");
             const ethereumData = await fetchCurrencyData("ethereum");
             const usdData = await fetchCurrencyData("usd");
 
             const chartOptions = {
-                scales: {
-                    x: { type: 'time', time: { unit: 'day' } },
-                    y: { beginAtZero: false }
-                },
-                plugins: {
-                    legend: { display: true }
-                },
-                responsive: false,  // Impede redimensionamento automático
+                scales: { x: { type: 'time', time: { unit: 'day' } }, y: { beginAtZero: false } },
+                plugins: { legend: { display: true } },
             };
 
-            new Chart(document.getElementById("bitcoinChart").getContext('2d'), {
-                type: 'line',
-                data: { datasets: [{ label: "Bitcoin", data: bitcoinData, borderColor: "#f7931a", backgroundColor: "#f7931a33", fill: true }] },
-                options: chartOptions
-            });
-
-            new Chart(document.getElementById("ethereumChart").getContext('2d'), {
-                type: 'line',
-                data: { datasets: [{ label: "Ethereum", data: ethereumData, borderColor: "#3c3c3d", backgroundColor: "#3c3c3d33", fill: true }] },
-                options: chartOptions
-            });
-
-            new Chart(document.getElementById("usdChart").getContext('2d'), {
-                type: 'line',
-                data: { datasets: [{ label: "Dólar", data: usdData, borderColor: "#0071c5", backgroundColor: "#0071c533", fill: true }] },
-                options: chartOptions
-            });
+            new Chart(document.getElementById("bitcoinChart"), { type: 'line', data: { datasets: [{ label: "Bitcoin", data: bitcoinData, borderColor: "#f7931a" }] }, options: chartOptions });
+            new Chart(document.getElementById("ethereumChart"), { type: 'line', data: { datasets: [{ label: "Ethereum", data: ethereumData, borderColor: "#3c3c3d" }] }, options: chartOptions });
+            new Chart(document.getElementById("usdChart"), { type: 'line', data: { datasets: [{ label: "Dólar", data: usdData, borderColor: "#007bff" }] }, options: chartOptions });
         }
 
-        // Inicializa os gráficos na carga da página
-        window.onload = initializeCharts;
+        // Função para adicionar mensagem ao chat
+        function addMessageToChat(sender, message) {
+            const chatBox = document.getElementById("chat-box");
+            const div = document.createElement("div");
+            div.classList.add("chat-message", sender === 'user' ? "user-message" : "bot-message");
+            div.innerHTML = message;
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight; // Auto scroll para a última mensagem
+        }
+
+        // Envio de mensagens
+        document.getElementById("send-btn").addEventListener("click", () => {
+            const userInput = document.getElementById("user-input").value;
+            if (userInput.trim()) {
+                addMessageToChat('user', userInput);
+                handleBotResponse(userInput);
+            }
+            document.getElementById("user-input").value = '';
+        });
+
+        // Toggle chatbot
+        document.getElementById("toggle-chatbot").addEventListener("click", () => {
+            const chatContainer = document.getElementById("chat-container");
+            chatContainer.style.display = chatContainer.style.display === 'none' ? 'block' : 'none';
+        });
+
+        // Inicializar gráficos e chatbot
+        window.onload = () => {
+            initializeCharts();
+            handleBotResponse(""); // Inicia o chatbot
+        };
     </script>
+
+    <!-- Bootstrap JS (necessário para o funcionamento de alguns componentes) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
