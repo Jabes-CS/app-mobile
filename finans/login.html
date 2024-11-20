@@ -35,43 +35,40 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.getElementById("loginForm").addEventListener("submit", async function(event) {
+        document.querySelector("form").addEventListener("submit", function(event) {
             event.preventDefault(); // Impede o comportamento padrão do formulário
     
             // Captura os valores dos campos
             const email = document.getElementById("email").value;
             const password = document.getElementById("password").value;
     
-            // URL da API
-            const apiUrl = "http://10.0.1.0/usuario/login";
+            // URL da API com QueryString
+            const apiUrl = `http://10.132.118.156:5000/usuario/login?email=${encodeURIComponent(email)}&senha=${encodeURIComponent(password)}`;
     
-            try {
-                // Faz a requisição para a API
-                const response = await fetch(apiUrl, {
-                    method: "POST", // Método HTTP
-                    headers: {
-                        "Content-Type": "application/json" // Tipo de conteúdo
-                    },
-                    body: JSON.stringify({ email, password }) // Corpo da requisição em JSON
-                });
+            // Configurando a requisição síncrona
+            const xhr = new XMLHttpRequest();
+            xhr.open("GET", apiUrl, false); // 'false' torna a requisição síncrona
     
-                // Trata a resposta da API
-                if (response.ok) {
-                    const data = await response.json(); // Converte a resposta em JSON
-                    console.log("Sucesso:", data);
+            // Enviando a requisição
+            xhr.send();
+
+            //Imprimindo a resposta do Servidor
+            console.log("Resposta do Servidor:", xhr.responseText);
     
-                    // Exemplo: redirecionar o usuário
-                    window.location.href = "/areacliente.html";
-                } else {
-                    console.error("Erro:", response.status);
-                    alert("Erro ao fazer login. Verifique suas credenciais.");
-                }
-            } catch (error) {
-                console.error("Erro de conexão:", error);
-                alert("Erro ao conectar com a API. Tente novamente mais tarde.");
+            // Verificando o status da resposta
+            if (xhr.status === 200) {
+                const response = JSON.parse(xhr.responseText);
+                console.log("Sucesso:", response);
+    
+                // Exemplo: exibe mensagem e redireciona para a página principal
+                alert("Login realizado com sucesso!");
+                window.location.href = "/areacliente.html"; // Substitua pelo redirecionamento desejado
+            } else {
+                console.error("Erro:", xhr.status, xhr.responseText);
+                alert("Erro ao realizar o login. Verifique suas credenciais.");
             }
         });
     </script>
-    
+
 </body>
 </html>
