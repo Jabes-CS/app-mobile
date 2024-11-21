@@ -12,7 +12,7 @@ export default function LoginScreen({navigation}){
 
   async function doLogin(){
 
-    let reqs = await fetch('http://10.0.0.105:5000/usuario/login',{
+    let reqs = await fetch('http://10.132.117.76:5000/usuario/login',{
       method: 'POST',
       headers:{
           'Accept':'application/json',

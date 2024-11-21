@@ -28,7 +28,7 @@ export default function SignUp({navigation}){
 
     async function registerUser(){
                                 // ROTA PARA O SERVIDOR
-        let reqs = await fetch('http://10.0.0.105:5000/usuario/cadastro2' ,{
+        let reqs = await fetch('http://10.132.117.76:5000/usuario/cadastro2' ,{
             method: 'POST',
             headers:{
                 'Accept':'application/json',

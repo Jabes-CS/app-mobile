@@ -16,7 +16,7 @@ export default function AddEntry({navigation}){
     
     async function doEntry(){
     
-        let reqs = await fetch('http://10.0.0.105:5000/extrato/adicionar',{
+        let reqs = await fetch('http://10.132.117.76:5000/extrato/adicionar',{
           method: 'POST',
           headers:{
               'Accept':'application/json',
