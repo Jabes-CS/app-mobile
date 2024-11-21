@@ -26,13 +26,14 @@ export default function LoginScreen({navigation}){
     
     let ress = await reqs.json();
     Keyboard.dismiss();
+    console.log(ress.status);
     if(ress.statusCode == 200){
       navigation.navigate('BottomTabNavigator');
     }else{
       setMessage(ress.message);
       setTimeout(()=>{
         setMessage(null);
-      },3000);
+      },6000);
     };
   }
 

@@ -52,10 +52,9 @@ export default function SignUp({navigation}){
         });
         let ress = await reqs.json();
 
-        
-        
+        console.log(ress.status);
         setMessage(ress.message);
-        console.log(ress.message);
+        
         if (ress.statusCode == 200){
             navigation.goBack();
         }

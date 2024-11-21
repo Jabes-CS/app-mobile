@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     },
     messageError:{
         fontWeight:"bold",
+        alignItems:"center",
         color:"red",
     }
 });

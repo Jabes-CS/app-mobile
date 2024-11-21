@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     messageError:{
         fontWeight:"bold",
         color:"red",
+        alignItems:"center"
     },
 
 });

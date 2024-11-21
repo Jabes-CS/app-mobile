@@ -32,7 +32,7 @@ export default function AddEntry({navigation}){
         })
         
         let ress = await reqs.json();
-        console.log(ress.statusCode);
+        console.log(ress.status);
         setMessage(ress.message);
         if(ress.statusCode == 200){
           navigation.goBack();
@@ -46,10 +46,6 @@ export default function AddEntry({navigation}){
                     <Text style={styles.mainText}>
                         "Se for pra gastar que seja com sabedoria"
                     </Text>
-
-                    {message &&(
-                        <Text style={styles.messageError}>{message}</Text>
-                    )}
 
                     <View>
                         <Text style={styles.label}>
@@ -87,6 +83,11 @@ export default function AddEntry({navigation}){
                             onChangeText={(text)=>setPreco(text)}
                         />
                     </View>
+
+
+                    {message &&(
+                        <Text style={styles.messageError}>{message}</Text>
+                    )}
 
                     <TouchableOpacity 
                         style={styles.buttonOk}
