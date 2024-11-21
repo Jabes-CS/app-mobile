@@ -2,9 +2,8 @@ import React, {useState} from "react";
 import { View, Text,  TouchableOpacity, ScrollView, Image  } from "react-native";
 
 import styles from "./styles";
-import AddEntry from "../AddEntry";
 
-export default function HomeView({navigation}, props){
+export default function HomeView({navigation}){
     
     const [tab, setTab] = useState("Entrada");
 
@@ -86,7 +85,6 @@ export default function HomeView({navigation}, props){
                         <StatementItem title="Outback" date="11/out" amount="R$ 100,00" type="expense" />
                         <StatementItem title="Louis Vitton" date="28/set" amount="R$ 10.000,00" type="expense" />
                         <StatementItem title="Gasolina" date="28/set" amount="R$ 350,00" type="expense" />
-                        <StatementItem title={props.descricao} date={props.dataCompra} amount={props.preco} type="expense" />
                     </View>
                     )}
                     <TouchableOpacity style={styles.viewMoreButton}>

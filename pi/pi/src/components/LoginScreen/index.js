@@ -12,7 +12,7 @@ export default function LoginScreen({navigation}){
 
   async function doLogin(){
 
-    let reqs = await fetch('http//127.0.0.1:5000/usuario/login',{
+    let reqs = await fetch('http://10.0.0.105:5000/usuario/login',{
       method: 'POST',
       headers:{
           'Accept':'application/json',
@@ -26,10 +26,10 @@ export default function LoginScreen({navigation}){
     
     let ress = await reqs.json();
     Keyboard.dismiss();
-    if(ress){
+    if(ress.statusCode == 200){
       navigation.navigate('BottomTabNavigator');
     }else{
-      setMessage('Usuário e/ou senha incorretos!');
+      setMessage(ress.message);
       setTimeout(()=>{
         setMessage(null);
       },3000);

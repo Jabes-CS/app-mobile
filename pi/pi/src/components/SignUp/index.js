@@ -28,7 +28,7 @@ export default function SignUp({navigation}){
 
     async function registerUser(){
                                 // ROTA PARA O SERVIDOR
-        let reqs = await fetch('http//127.0.0.1:5000/usuario/cadastro' ,{
+        let reqs = await fetch('http://10.0.0.105:5000/usuario/cadastro2' ,{
             method: 'POST',
             headers:{
                 'Accept':'application/json',
@@ -37,10 +37,10 @@ export default function SignUp({navigation}){
             },
             body: JSON.stringify({
                 nome: nome,
-                senha:senha,
                 data_nasc: data_nasc,
                 telefone:telefone,
                 email:email,
+                senha:senha,
                 cpf:cpf,
                 cep:cep,
                 salario:salario,
@@ -52,8 +52,14 @@ export default function SignUp({navigation}){
         });
         let ress = await reqs.json();
 
-        setMessage(ress);
-        navigation.goBack();
+        
+        
+        setMessage(ress.message);
+        console.log(ress.message);
+        if (ress.statusCode == 200){
+            navigation.goBack();
+        }
+        
     }
 
     return(

@@ -11,35 +11,32 @@ export default function AddEntry({navigation}){
     const [preco, setPreco] = useState(null);
     const [dataCompra, setDataCompra] = useState(null);
     const [categoria, setCategoria] = useState(null);
-    const [descricao, setDesc] = useState(null);
+    const [nome_empresa, setNomeEmpresa] = useState(null);
     const [message, setMessage] = useState(null);
     
     async function doEntry(){
     
-        let reqs = await fetch('http//127.0.0.1:5000/extrato/adicionar',{
+        let reqs = await fetch('http://10.0.0.105:5000/extrato/adicionar',{
           method: 'POST',
           headers:{
               'Accept':'application/json',
               'Content-Type':'application/json',
           },
           body: JSON.stringify({
+            nome_empresa:nome_empresa,
             preco:preco,
             data_compra:dataCompra,
             categoria:categoria,
-            descricao:descricao
+            
           })
         })
         
         let ress = await reqs.json();
-        Keyboard.dismiss();
-        if(ress){
+        console.log(ress.statusCode);
+        setMessage(ress.message);
+        if(ress.statusCode == 200){
           navigation.goBack();
-        }else{
-          setMessage('Não conseguimos efetuar sua atualização');
-          setTimeout(()=>{
-            setMessage(null);
-          },3000);
-        };
+        }
     }
 
     return(
@@ -56,11 +53,11 @@ export default function AddEntry({navigation}){
 
                     <View>
                         <Text style={styles.label}>
-                            Descrição da Movimentação
+                            Estabelecimento
                         </Text>
                         <TextInput 
                             style={styles.input}
-                            onChangeText={(text)=>setDesc(text)}
+                            onChangeText={(text)=>setNomeEmpresa(text)}
                         />
                     </View>
                     <View>
